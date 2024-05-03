@@ -6,6 +6,7 @@ Help () {
     echo -e "\t./build.sh"
     echo "Options:"
     echo -e "\t-c\t\tCleans the build area."
+    echo -e "\t-f\t\tFormats All the Files with Clang-Format."
     echo -e "\t-h\t\tDisplays this help information."
     echo -e "\t-i\t\tGenerates IDL files for FastDDS."
     echo -e "\t-q\t\tJust recompiles code."
@@ -23,6 +24,12 @@ Clean () {
     fi
 
     echo "Directory Cleaned."
+}
+
+Format() {
+    find . -type d \( -path ./build -o -path ./FastDDSMessages \) -prune \
+        -o -iname *.h -o -iname *.c -o -iname *.cpp -o -iname *.hpp \
+        | xargs clang-format -style=file -i -fallback-style=none   
 }
 
 IDL () {
@@ -50,22 +57,28 @@ NormalBuild () {
     Clean
     echo "Creating Build directory."
     mkdir ${SCRIPT_DIR}/build
-    echo "Generating code from IDL's"
+    echo "Generating code from IDL's."
     IDL
+    echo "Formatting files."
+    Format
     echo "Configuring CMake."
-    cmake -S ${SCRIPT_DIR} -B ${SCRIPT_DIR}/build
+    cmake -DCMAKE_BUILD_TYPE=DEBUG -S ${SCRIPT_DIR} -B ${SCRIPT_DIR}/build
     echo "Compiling code."
     QuickBuild
 }
 
 
 
-while getopts ":hcqi" arg; do
+while getopts ":hcqif" arg; do
     case $arg in
         h)
             Help
             exit 1
             ;;
+        f)
+            Format
+            exit 1
+            ;;    
         c)
             Clean
             exit 1

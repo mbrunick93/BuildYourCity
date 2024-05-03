@@ -11,3 +11,4 @@ if(NOT fastrtps_FOUND)
 endif()
 
 add_subdirectory(FastDDSMessages)
+add_subdirectory(Common)
