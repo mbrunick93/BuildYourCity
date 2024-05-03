@@ -10,7 +10,7 @@ namespace Common
     public:
       FastDDSPubListener() : matched_( 0 ), firstConnected_( false ) {}
 
-      ~FastDDSPubListener() override {}
+      ~FastDDSPubListener() override = default;
 
       void on_publication_matched(
           eprosima::fastdds::dds::DataWriter*                     writer,
