@@ -57,7 +57,6 @@ namespace Common
           std::cout << "Reader Error";
           abort();
         }
-
       };
 
       ~FastDDSSubWrapper()
@@ -82,7 +81,7 @@ namespace Common
       {
         if ( reader->take_next_sample( &message, &sampleinfo ) == ReturnCode_t::RETCODE_OK )
         {
-            return &message;
+          return &message;
         }
         else
         {
