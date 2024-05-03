@@ -4,7 +4,12 @@
 
 int main()
 {
-  TestPubSubType                     test;
-  Test                               msg;
-  eprosima::fastdds::dds::DomainId_t id( 0 );
+  TestPubSubType                                  test;
+  Test                                            msg;
+  std::string                                     testTopic( "TestTopic" );
+  Common::FastDDSPubWrapper<TestPubSubType, Test> testPublisher( testTopic );
+
+  msg.message( "hello" );
+
+  testPublisher.publish( msg );
 }

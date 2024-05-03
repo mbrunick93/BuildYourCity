@@ -6,7 +6,7 @@ AlignConsecutiveDeclarations: 'true'
 AlignEscapedNewlines: Left
 AlignOperands: 'true'
 AlignTrailingComments: 'true'
-AllowAllArgumentsOnNextLine: 'true'
+AllowAllArgumentsOnNextLine: 'false'
 AllowAllConstructorInitializersOnNextLine: 'false'
 AllowAllParametersOfDeclarationOnNextLine: 'false'
 AllowShortBlocksOnASingleLine: 'false'
@@ -24,9 +24,11 @@ BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Allman
 BreakConstructorInitializers: AfterColon
 BreakInheritanceList: AfterColon
+ColumnLimit: '100'
 CompactNamespaces: 'false'
 Cpp11BracedListStyle: 'false'
 FixNamespaceComments: 'true'
+IndentAccessModifiers: true
 KeepEmptyLinesAtTheStartOfBlocks: 'false'
 Language: Cpp
 NamespaceIndentation: All

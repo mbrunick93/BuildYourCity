@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.20)
 
 project(BuildYourCity)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 if(NOT fastcdr_FOUND)
     find_package(fastcdr 2 REQUIRED)
 endif()

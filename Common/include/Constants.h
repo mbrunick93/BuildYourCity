@@ -1,11 +1,8 @@
 
 #include <string>
 
-namespace Constants
+namespace Constants::TopicNames
 {
-  namespace TopicNames
-  {
-    const std::string TestTopic{ "TestTopic" };
-  }
+  const std::string TestTopic{ "TestTopic" };
 
-} // namespace Constants
+} // namespace Constants::TopicNames
