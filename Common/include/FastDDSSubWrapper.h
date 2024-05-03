@@ -11,10 +11,10 @@
 
 namespace Common
 {
-  template<typename NewPubSubType, typename NewMsgType> class FastDDSubWrapper
+  template<typename NewPubSubType, typename NewMsgType> class FastDDSSubWrapper
   {
     public:
-      explicit FastDDSubWrapper( std::string const& topicName ) : type( new NewPubSubType() )
+      explicit FastDDSSubWrapper( std::string const& topicName ) : type( new NewPubSubType() )
       {
         eprosima::fastdds::dds::DomainParticipantQos partQOS =
             eprosima::fastdds::dds::PARTICIPANT_QOS_DEFAULT;
@@ -51,16 +51,16 @@ namespace Common
 
         // Setup Reader
         eprosima::fastdds::dds::DataReaderQos rqos = eprosima::fastdds::dds::DATAREADER_QOS_DEFAULT;
-        rqos.reliability().kind = eprosima::fastdds::dds::RELIABLE_RELIABILITY_QOS;
-        reader                  = subscriber->create_datareader( topic, rqos, &listener );
+        reader = subscriber->create_datareader( topic, rqos, &listener );
         if ( reader == nullptr )
         {
           std::cout << "Reader Error";
           abort();
         }
+
       };
 
-      ~FastDDSubWrapper()
+      ~FastDDSSubWrapper()
       {
         if ( reader != nullptr )
         {
@@ -82,10 +82,7 @@ namespace Common
       {
         if ( reader->take_next_sample( &message, &sampleinfo ) == ReturnCode_t::RETCODE_OK )
         {
-          if ( sampleinfo.instance_state == eprosima::fastdds::dds::ALIVE_INSTANCE_STATE )
-          {
             return &message;
-          }
         }
         else
         {
