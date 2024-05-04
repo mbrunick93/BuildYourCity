@@ -1,0 +1,13 @@
+
+enum PubSubTypeEnum
+{
+    GUI,
+    SIMULATION_MANAGER,
+    RESIDENTIAL_MANAGER
+};
+
+struct CommonMessage
+{
+    PubSubTypeEnum publisher;
+    PubSubTypeEnum subscriber;
+};

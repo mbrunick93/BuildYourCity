@@ -10,10 +10,12 @@
 
 #include "Constants.h"
 #include "FastDDSPubListener.h"
+#include "IFastDDSPubWrapper.h"
 
 namespace Common
 {
-  template<typename NewPubSubType, typename NewMsgType> class FastDDSPubWrapper
+  template<typename NewPubSubType, typename NewMsgType>
+  class FastDDSPubWrapper : public Common::IFastDDSPubWrapper<NewPubSubType,NewMsgType>
   {
     public:
       explicit FastDDSPubWrapper( std::string const& topicName ) : type( new NewPubSubType() )
@@ -79,7 +81,7 @@ namespace Common
             participant );
       }
 
-      void publish( NewMsgType messageToPublish )
+      void publish( NewMsgType messageToPublish ) override
       {
         writer->write( &messageToPublish );
       };

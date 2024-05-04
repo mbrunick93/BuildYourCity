@@ -1,10 +1,9 @@
-project(Common)
+project(common)
 
 file(GLOB COMMON_SOURCES_CXX "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
-add_library(Common ${COMMON_SOURCES_CXX})
-target_include_directories(Common PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
-${CMAKE_CURRENT_SOURCE_DIR}/../FastDDSMessages/src)
+add_library(common ${COMMON_SOURCES_CXX})
+target_include_directories(common PUBLIC    ${CMAKE_CURRENT_SOURCE_DIR}/include
+                                            ${CMAKE_CURRENT_SOURCE_DIR}/../FastDDSMessages/src)
+target_link_libraries(common PUBLIC FastDDSMessages fastrtps fastcdr)
 
-add_executable(TestMain CommonTest.cpp)
-target_link_libraries(TestMain Common FastDDSMessages fastrtps fastcdr)
 

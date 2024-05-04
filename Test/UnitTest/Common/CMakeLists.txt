@@ -1,6 +1,6 @@
 project(CommonUnitTest)
 
 add_executable(CommonUnitTest CommonUnitTest.cpp)
-target_link_libraries(CommonUnitTest gtest_main)
+target_link_libraries(CommonUnitTest gtest_main common FastDDSMessages )
 include(GoogleTest)
 gtest_discover_tests(CommonUnitTest)
