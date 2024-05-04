@@ -10,6 +10,7 @@ Help () {
     echo -e "\t-h\t\tDisplays this help information."
     echo -e "\t-i\t\tGenerates IDL files for FastDDS."
     echo -e "\t-q\t\tJust recompiles code."
+    echo -e "\t-u\t\tPerforms Unit Tests."
 }
 
 Clean () {
@@ -48,10 +49,24 @@ IDL () {
 }
 
 QuickBuild () {
-    cmake --build ${SCRIPT_DIR}/build
+    if [ -d ${SCRIPT_DIR}/build ]
+    then
+        cmake --build ${SCRIPT_DIR}/build
+    else
+        echo "Can't perform quick build. Run full script first "./build.sh""
+        exit 1
+    fi
 }
 
-
+UnitTest(){
+    if [ -d ${SCRIPT_DIR}/build ]
+    then
+        ctest --test-dir ${SCRIPT_DIR}/build -V --stop-on-failure -O build/UnitTestReport
+    else
+        echo "Can't perform unit test. Build directory doesnt exist."
+        exit 1
+    fi
+}
 
 NormalBuild () {
     Clean
@@ -67,10 +82,12 @@ NormalBuild () {
     QuickBuild
 }
 
-
-
-while getopts ":hcqif" arg; do
+while getopts ":hcqifu" arg; do
     case $arg in
+        u)
+            UnitTest
+            exit 1
+            ;;
         h)
             Help
             exit 1

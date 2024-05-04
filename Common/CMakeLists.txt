@@ -8,4 +8,3 @@ ${CMAKE_CURRENT_SOURCE_DIR}/../FastDDSMessages/src)
 add_executable(TestMain CommonTest.cpp)
 target_link_libraries(TestMain Common FastDDSMessages fastrtps fastcdr)
 
-
