@@ -37,10 +37,12 @@ TEST( CommonUnitTest, SubscriberTest )
   testMessage.publisher( PubSubTypeEnum::GUI );
   testMessage.subscriber( PubSubTypeEnum::SIMULATION_MANAGER );
 
-  EXPECT_CALL(subMock,getMessage()).WillOnce(Return(nullptr)).WillOnce(Return(&testMessage));
+  EXPECT_CALL( subMock, getMessage() )
+      .WillOnce( Return( nullptr ) )
+      .WillOnce( Return( &testMessage ) );
   CommonMessage* recvMessage = subscriber->getMessage();
-  EXPECT_EQ(recvMessage,nullptr);
+  EXPECT_EQ( recvMessage, nullptr );
   recvMessage = subscriber->getMessage();
-  EXPECT_EQ(recvMessage->publisher(),PubSubTypeEnum::GUI);
-  EXPECT_EQ(recvMessage->subscriber(),PubSubTypeEnum::SIMULATION_MANAGER);
+  EXPECT_EQ( recvMessage->publisher(), PubSubTypeEnum::GUI );
+  EXPECT_EQ( recvMessage->subscriber(), PubSubTypeEnum::SIMULATION_MANAGER );
 }

@@ -11,14 +11,14 @@ namespace TestMocks
   class PublisherMock : public Common::IFastDDSPubWrapper<NewPubSubType, NewMsgType>
   {
     public:
-      MOCK_METHOD( void, publish, (NewMsgType messageToPublish), ( override ) );
+      MOCK_METHOD( void, publish, ( NewMsgType messageToPublish ), ( override ) );
   };
 
   template<typename NewPubSubType, typename NewMsgType>
   class SubscriberMock : public Common::IFastDDSSubWrapper<NewPubSubType, NewMsgType>
   {
     public:
-      MOCK_METHOD( NewMsgType* , getMessage, (), ( override ) );
+      MOCK_METHOD( NewMsgType*, getMessage, (), ( override ) );
   };
 
 } // namespace TestMocks
