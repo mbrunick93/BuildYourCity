@@ -7,6 +7,7 @@ namespace Common
   {
     public:
       virtual void publish( NewMsgType messageToPublish ) = 0;
+      virtual ~IFastDDSPubWrapper() = default;
   };
 } // namespace Common
 #endif

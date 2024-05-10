@@ -8,10 +8,11 @@
 #include <fastdds/dds/topic/TypeSupport.hpp>
 
 #include "FastDDSSubListener.h"
+#include "IFastDDSSubWrapper.h"
 
 namespace Common
 {
-  template<typename NewPubSubType, typename NewMsgType> class FastDDSSubWrapper
+  template<typename NewPubSubType, typename NewMsgType> class FastDDSSubWrapper : public Common::IFastDDSSubWrapper
   {
     public:
       explicit FastDDSSubWrapper( std::string const& topicName ) : type( new NewPubSubType() )
@@ -77,7 +78,7 @@ namespace Common
             participant );
       }
 
-      NewMsgType* getMessage()
+      NewMsgType* getMessage() override
       {
         if ( reader->take_next_sample( &message, &sampleinfo ) == ReturnCode_t::RETCODE_OK )
         {
