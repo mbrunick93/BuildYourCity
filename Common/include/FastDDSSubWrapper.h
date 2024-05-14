@@ -13,7 +13,7 @@
 namespace Common
 {
   template<typename NewPubSubType, typename NewMsgType>
-  class FastDDSSubWrapper : public Common::IFastDDSSubWrapper
+  class FastDDSSubWrapper : public Common::IFastDDSSubWrapper<NewPubSubType, NewMsgType>
   {
     public:
       explicit FastDDSSubWrapper( std::string const& topicName ) : type( new NewPubSubType() )

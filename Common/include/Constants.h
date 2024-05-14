@@ -1,8 +1,11 @@
 
 #include <string>
 
-namespace Constants::TopicNames
+namespace Constants
 {
-  const std::string TestTopic{ "TestTopic" };
-
-} // namespace Constants::TopicNames
+  namespace TopicNames
+  {
+    const std::string initIntegrationTopic = "initIntegrationTopic";
+    const std::string initBackendTopic = "initBackendTopic";
+  } // namespace TopicNames
+} // namespace Constants

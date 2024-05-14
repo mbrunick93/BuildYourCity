@@ -8,7 +8,6 @@
 #include <fastdds/dds/topic/TypeSupport.hpp>
 #include <string>
 
-#include "Constants.h"
 #include "FastDDSPubListener.h"
 #include "IFastDDSPubWrapper.h"
 

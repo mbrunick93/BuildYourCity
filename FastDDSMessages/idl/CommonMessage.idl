@@ -6,8 +6,10 @@ enum PubSubTypeEnum
     RESIDENTIAL_MANAGER
 };
 
+
 struct CommonMessage
 {
     PubSubTypeEnum publisher;
     PubSubTypeEnum subscriber;
+    short dataField[256];
 };

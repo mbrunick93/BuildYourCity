@@ -22,6 +22,7 @@ TEST( CommonUnitTest, PublisherTest )
   publisher = &pubMock;
 
   EXPECT_CALL( pubMock, publish( testMessage ) ).Times( AtLeast( 1 ) );
+
   publisher->publish( testMessage );
 }
 
@@ -40,6 +41,7 @@ TEST( CommonUnitTest, SubscriberTest )
   EXPECT_CALL( subMock, getMessage() )
       .WillOnce( Return( nullptr ) )
       .WillOnce( Return( &testMessage ) );
+
   CommonMessage* recvMessage = subscriber->getMessage();
   EXPECT_EQ( recvMessage, nullptr );
   recvMessage = subscriber->getMessage();

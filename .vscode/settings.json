@@ -65,7 +65,9 @@
         "unordered_set": "cpp",
         "optional": "cpp",
         "fstream": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "cinttypes": "cpp"
     },
-    "sonarlint.pathToCompileCommands": "${workspaceFolder}/build/compile_commands.json"
+    "sonarlint.pathToCompileCommands": "${workspaceFolder}/build/compile_commands.json",
+    "cmake.configureOnOpen": true
 }

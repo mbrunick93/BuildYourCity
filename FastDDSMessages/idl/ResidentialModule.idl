@@ -1,0 +1,19 @@
+enum ResidentialDataField
+{
+    RESIDENTIAL_ID,
+    OPERATION_TYPE,
+    MODULE_TYPE,
+    TOTAL_POPULATION
+};
+
+enum ResidentialOperationType 
+{
+    ADD_MODULE,
+    REMOVE_MODULE
+};
+
+enum ResidentialModuleType 
+{
+    SINGLE_FAMILY_HOME
+};
+

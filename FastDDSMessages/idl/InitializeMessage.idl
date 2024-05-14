@@ -1,0 +1,9 @@
+enum ScenarioType
+{
+    NEW_SCENARIO,
+    LOADED_SCENARIO
+};
+struct InitializeMessage
+{
+    ScenarioType scenarioType;
+};
