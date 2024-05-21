@@ -16,8 +16,11 @@ func _input(event):
 			building_window.hide()
 		var mouse_pos = get_global_mouse_position()
 		var tileMousePos = tile_map.local_to_map(mouse_pos)
-		building_window.setLocation(tileMousePos)
-		building_window.show()
+		
+		if (tileMousePos.y <= 19):
+			print("Mouse position: ",tileMousePos)
+			building_window.setLocation(tileMousePos)
+			building_window.show()
 		
 		
 
