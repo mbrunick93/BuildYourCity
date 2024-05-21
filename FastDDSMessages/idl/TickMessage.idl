@@ -1,0 +1,4 @@
+struct TickMessage
+{
+    unsigned long tickValue;
+};

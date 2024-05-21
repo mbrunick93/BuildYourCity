@@ -34,31 +34,40 @@
 #include <godot_cpp/core/object_id.hpp>
 #include <godot_cpp/variant/string_name.hpp>
 
-namespace godot {
+namespace godot
+{
 
-class Object;
+  class Object;
 
-class CallableCustomBase {
-public:
-	virtual ObjectID get_object() const = 0;
-	virtual int get_argument_count(bool &r_is_valid) const;
-	virtual void call(const Variant **p_arguments, int p_argcount, Variant &r_return_value, GDExtensionCallError &r_call_error) const = 0;
-	virtual ~CallableCustomBase() {}
-};
+  class CallableCustomBase
+  {
+    public:
+      virtual ObjectID get_object() const = 0;
+      virtual int      get_argument_count( bool& r_is_valid ) const;
+      virtual void     call( const Variant**       p_arguments,
+                             int                   p_argcount,
+                             Variant&              r_return_value,
+                             GDExtensionCallError& r_call_error ) const = 0;
+      virtual ~CallableCustomBase() {}
+  };
 
-class CallableCustom : public CallableCustomBase {
-public:
-	typedef bool (*CompareEqualFunc)(const CallableCustom *p_a, const CallableCustom *p_b);
-	typedef bool (*CompareLessFunc)(const CallableCustom *p_a, const CallableCustom *p_b);
+  class CallableCustom : public CallableCustomBase
+  {
+    public:
+      typedef bool ( *CompareEqualFunc )( const CallableCustom* p_a, const CallableCustom* p_b );
+      typedef bool ( *CompareLessFunc )( const CallableCustom* p_a, const CallableCustom* p_b );
 
-	virtual uint32_t hash() const = 0;
-	virtual String get_as_text() const = 0;
-	virtual CompareEqualFunc get_compare_equal_func() const = 0;
-	virtual CompareLessFunc get_compare_less_func() const = 0;
-	virtual bool is_valid() const;
-	virtual ObjectID get_object() const = 0;
-	virtual void call(const Variant **p_arguments, int p_argcount, Variant &r_return_value, GDExtensionCallError &r_call_error) const = 0;
-};
+      virtual uint32_t         hash() const                   = 0;
+      virtual String           get_as_text() const            = 0;
+      virtual CompareEqualFunc get_compare_equal_func() const = 0;
+      virtual CompareLessFunc  get_compare_less_func() const  = 0;
+      virtual bool             is_valid() const;
+      virtual ObjectID         get_object() const                               = 0;
+      virtual void             call( const Variant**       p_arguments,
+                                     int                   p_argcount,
+                                     Variant&              r_return_value,
+                                     GDExtensionCallError& r_call_error ) const = 0;
+  };
 
 } // namespace godot
 

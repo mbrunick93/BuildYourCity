@@ -34,109 +34,154 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/core/error_macros.hpp>
 
-namespace godot {
+namespace godot
+{
 
-template <typename T>
-class SelfList {
-public:
-	class List {
-		SelfList<T> *_first = nullptr;
-		SelfList<T> *_last = nullptr;
+  template<typename T> class SelfList
+  {
+    public:
+      class List
+      {
+          SelfList<T>* _first = nullptr;
+          SelfList<T>* _last  = nullptr;
 
-	public:
-		void add(SelfList<T> *p_elem) {
-			ERR_FAIL_COND(p_elem->_root);
+        public:
+          void add( SelfList<T>* p_elem )
+          {
+            ERR_FAIL_COND( p_elem->_root );
 
-			p_elem->_root = this;
-			p_elem->_next = _first;
-			p_elem->_prev = nullptr;
+            p_elem->_root = this;
+            p_elem->_next = _first;
+            p_elem->_prev = nullptr;
 
-			if (_first) {
-				_first->_prev = p_elem;
+            if ( _first )
+            {
+              _first->_prev = p_elem;
+            }
+            else
+            {
+              _last = p_elem;
+            }
 
-			} else {
-				_last = p_elem;
-			}
+            _first = p_elem;
+          }
 
-			_first = p_elem;
-		}
+          void add_last( SelfList<T>* p_elem )
+          {
+            ERR_FAIL_COND( p_elem->_root );
 
-		void add_last(SelfList<T> *p_elem) {
-			ERR_FAIL_COND(p_elem->_root);
+            p_elem->_root = this;
+            p_elem->_next = nullptr;
+            p_elem->_prev = _last;
 
-			p_elem->_root = this;
-			p_elem->_next = nullptr;
-			p_elem->_prev = _last;
+            if ( _last )
+            {
+              _last->_next = p_elem;
+            }
+            else
+            {
+              _first = p_elem;
+            }
 
-			if (_last) {
-				_last->_next = p_elem;
+            _last = p_elem;
+          }
 
-			} else {
-				_first = p_elem;
-			}
+          void remove( SelfList<T>* p_elem )
+          {
+            ERR_FAIL_COND( p_elem->_root != this );
+            if ( p_elem->_next )
+            {
+              p_elem->_next->_prev = p_elem->_prev;
+            }
 
-			_last = p_elem;
-		}
+            if ( p_elem->_prev )
+            {
+              p_elem->_prev->_next = p_elem->_next;
+            }
 
-		void remove(SelfList<T> *p_elem) {
-			ERR_FAIL_COND(p_elem->_root != this);
-			if (p_elem->_next) {
-				p_elem->_next->_prev = p_elem->_prev;
-			}
+            if ( _first == p_elem )
+            {
+              _first = p_elem->_next;
+            }
 
-			if (p_elem->_prev) {
-				p_elem->_prev->_next = p_elem->_next;
-			}
+            if ( _last == p_elem )
+            {
+              _last = p_elem->_prev;
+            }
 
-			if (_first == p_elem) {
-				_first = p_elem->_next;
-			}
+            p_elem->_next = nullptr;
+            p_elem->_prev = nullptr;
+            p_elem->_root = nullptr;
+          }
 
-			if (_last == p_elem) {
-				_last = p_elem->_prev;
-			}
+          _FORCE_INLINE_ SelfList<T>* first()
+          {
+            return _first;
+          }
+          _FORCE_INLINE_ const SelfList<T>* first() const
+          {
+            return _first;
+          }
 
-			p_elem->_next = nullptr;
-			p_elem->_prev = nullptr;
-			p_elem->_root = nullptr;
-		}
+          _FORCE_INLINE_ List() {}
+          _FORCE_INLINE_ ~List()
+          {
+            ERR_FAIL_COND( _first != nullptr );
+          }
+      };
 
-		_FORCE_INLINE_ SelfList<T> *first() { return _first; }
-		_FORCE_INLINE_ const SelfList<T> *first() const { return _first; }
+    private:
+      List*        _root = nullptr;
+      T*           _self = nullptr;
+      SelfList<T>* _next = nullptr;
+      SelfList<T>* _prev = nullptr;
 
-		_FORCE_INLINE_ List() {}
-		_FORCE_INLINE_ ~List() { ERR_FAIL_COND(_first != nullptr); }
-	};
+    public:
+      _FORCE_INLINE_ bool in_list() const
+      {
+        return _root;
+      }
+      _FORCE_INLINE_ void remove_from_list()
+      {
+        if ( _root )
+        {
+          _root->remove( this );
+        }
+      }
+      _FORCE_INLINE_ SelfList<T>* next()
+      {
+        return _next;
+      }
+      _FORCE_INLINE_ SelfList<T>* prev()
+      {
+        return _prev;
+      }
+      _FORCE_INLINE_ const SelfList<T>* next() const
+      {
+        return _next;
+      }
+      _FORCE_INLINE_ const SelfList<T>* prev() const
+      {
+        return _prev;
+      }
+      _FORCE_INLINE_ T* self() const
+      {
+        return _self;
+      }
 
-private:
-	List *_root = nullptr;
-	T *_self = nullptr;
-	SelfList<T> *_next = nullptr;
-	SelfList<T> *_prev = nullptr;
+      _FORCE_INLINE_ SelfList( T* p_self )
+      {
+        _self = p_self;
+      }
 
-public:
-	_FORCE_INLINE_ bool in_list() const { return _root; }
-	_FORCE_INLINE_ void remove_from_list() {
-		if (_root) {
-			_root->remove(this);
-		}
-	}
-	_FORCE_INLINE_ SelfList<T> *next() { return _next; }
-	_FORCE_INLINE_ SelfList<T> *prev() { return _prev; }
-	_FORCE_INLINE_ const SelfList<T> *next() const { return _next; }
-	_FORCE_INLINE_ const SelfList<T> *prev() const { return _prev; }
-	_FORCE_INLINE_ T *self() const { return _self; }
-
-	_FORCE_INLINE_ SelfList(T *p_self) {
-		_self = p_self;
-	}
-
-	_FORCE_INLINE_ ~SelfList() {
-		if (_root) {
-			_root->remove(this);
-		}
-	}
-};
+      _FORCE_INLINE_ ~SelfList()
+      {
+        if ( _root )
+        {
+          _root->remove( this );
+        }
+      }
+  };
 
 } // namespace godot
 

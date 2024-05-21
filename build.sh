@@ -51,7 +51,7 @@ IDL () {
 QuickBuild () {
     if [ -d ${SCRIPT_DIR}/build ]
     then
-        cmake --build ${SCRIPT_DIR}/build 
+        cmake --build ${SCRIPT_DIR}/build -j 10
     else
         echo "Can't perform quick build. Run full script first "./build.sh""
         exit 1

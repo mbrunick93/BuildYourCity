@@ -3,10 +3,10 @@
 
 #include "Constants.h"
 #include "FastDDSPubWrapper.h"
-#include "IFastDDSPubWrapper.h"
 #include "FastDDSSubWrapper.h"
+#include "IFastDDSPubWrapper.h"
 #include "IFastDDSSubWrapper.h"
-#include "InitializeMessagePubSubTypes.h" 
+#include "InitializeMessagePubSubTypes.h"
 
 namespace Manager
 {
@@ -18,11 +18,14 @@ namespace Manager
       void run();
 
     private:
-      Common::FastDDSPubWrapper<InitializeMessagePubSubType,InitializeMessage> implInitMsgPublisher{Constants::TopicNames::initBackendTopic};
-      Common::FastDDSSubWrapper<InitializeMessagePubSubType,InitializeMessage> implInitMsgSubscriber{Constants::TopicNames::initIntegrationTopic};
-      Common::IFastDDSPubWrapper<InitializeMessagePubSubType,InitializeMessage>* initializeMsgPublisher;
-      Common::IFastDDSSubWrapper<InitializeMessagePubSubType,InitializeMessage>* initializeMsgSubscriber;
-      
+      Common::FastDDSPubWrapper<InitializeMessagePubSubType, InitializeMessage>
+          implInitMsgPublisher{ Constants::TopicNames::initBackendTopic };
+      Common::FastDDSSubWrapper<InitializeMessagePubSubType, InitializeMessage>
+          implInitMsgSubscriber{ Constants::TopicNames::initIntegrationTopic };
+      Common::IFastDDSPubWrapper<InitializeMessagePubSubType, InitializeMessage>*
+          initializeMsgPublisher;
+      Common::IFastDDSSubWrapper<InitializeMessagePubSubType, InitializeMessage>*
+          initializeMsgSubscriber;
   };
 } // namespace Manager
 

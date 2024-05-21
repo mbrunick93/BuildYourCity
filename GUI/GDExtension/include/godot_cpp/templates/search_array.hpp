@@ -33,38 +33,51 @@
 
 #include <godot_cpp/templates/sort_array.hpp>
 
-namespace godot {
+namespace godot
+{
 
-template <typename T, typename Comparator = _DefaultComparator<T>>
-class SearchArray {
-public:
-	Comparator compare;
+  template<typename T, typename Comparator = _DefaultComparator<T>> class SearchArray
+  {
+    public:
+      Comparator compare;
 
-	inline int bisect(const T *p_array, int p_len, const T &p_value, bool p_before) const {
-		int lo = 0;
-		int hi = p_len;
-		if (p_before) {
-			while (lo < hi) {
-				const int mid = (lo + hi) / 2;
-				if (compare(p_array[mid], p_value)) {
-					lo = mid + 1;
-				} else {
-					hi = mid;
-				}
-			}
-		} else {
-			while (lo < hi) {
-				const int mid = (lo + hi) / 2;
-				if (compare(p_value, p_array[mid])) {
-					hi = mid;
-				} else {
-					lo = mid + 1;
-				}
-			}
-		}
-		return lo;
-	}
-};
+      inline int bisect( const T* p_array, int p_len, const T& p_value, bool p_before ) const
+      {
+        int lo = 0;
+        int hi = p_len;
+        if ( p_before )
+        {
+          while ( lo < hi )
+          {
+            const int mid = ( lo + hi ) / 2;
+            if ( compare( p_array[mid], p_value ) )
+            {
+              lo = mid + 1;
+            }
+            else
+            {
+              hi = mid;
+            }
+          }
+        }
+        else
+        {
+          while ( lo < hi )
+          {
+            const int mid = ( lo + hi ) / 2;
+            if ( compare( p_value, p_array[mid] ) )
+            {
+              hi = mid;
+            }
+            else
+            {
+              lo = mid + 1;
+            }
+          }
+        }
+        return lo;
+      }
+  };
 
 } // namespace godot
 

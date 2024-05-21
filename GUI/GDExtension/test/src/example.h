@@ -28,240 +28,269 @@
 
 using namespace godot;
 
-class ExampleRef : public RefCounted {
-	GDCLASS(ExampleRef, RefCounted);
+class ExampleRef : public RefCounted
+{
+    GDCLASS( ExampleRef, RefCounted );
 
-private:
-	static int instance_count;
-	static int last_id;
+  private:
+    static int instance_count;
+    static int last_id;
 
-	int id;
-	bool post_initialized = false;
+    int  id;
+    bool post_initialized = false;
 
-protected:
-	static void _bind_methods();
+  protected:
+    static void _bind_methods();
 
-	void _notification(int p_what);
+    void _notification( int p_what );
 
-public:
-	ExampleRef();
-	~ExampleRef();
+  public:
+    ExampleRef();
+    ~ExampleRef();
 
-	void set_id(int p_id);
-	int get_id() const;
+    void set_id( int p_id );
+    int  get_id() const;
 
-	bool was_post_initialized() const { return post_initialized; }
+    bool was_post_initialized() const
+    {
+      return post_initialized;
+    }
 };
 
-class ExampleMin : public Control {
-	GDCLASS(ExampleMin, Control);
+class ExampleMin : public Control
+{
+    GDCLASS( ExampleMin, Control );
 
-protected:
-	static void _bind_methods(){};
+  protected:
+    static void _bind_methods(){};
 };
 
-class Example : public Control {
-	GDCLASS(Example, Control);
+class Example : public Control
+{
+    GDCLASS( Example, Control );
 
-protected:
-	static void _bind_methods();
+  protected:
+    static void _bind_methods();
 
-	void _notification(int p_what);
-	bool _set(const StringName &p_name, const Variant &p_value);
-	bool _get(const StringName &p_name, Variant &r_ret) const;
-	void _get_property_list(List<PropertyInfo> *p_list) const;
-	bool _property_can_revert(const StringName &p_name) const;
-	bool _property_get_revert(const StringName &p_name, Variant &r_property) const;
-	void _validate_property(PropertyInfo &p_property) const;
+    void _notification( int p_what );
+    bool _set( const StringName& p_name, const Variant& p_value );
+    bool _get( const StringName& p_name, Variant& r_ret ) const;
+    void _get_property_list( List<PropertyInfo>* p_list ) const;
+    bool _property_can_revert( const StringName& p_name ) const;
+    bool _property_get_revert( const StringName& p_name, Variant& r_property ) const;
+    void _validate_property( PropertyInfo& p_property ) const;
 
-	String _to_string() const;
+    String _to_string() const;
 
-private:
-	Vector2 custom_position;
-	Vector3 property_from_list;
-	Vector2 dprop[3];
-	int last_rpc_arg = 0;
+  private:
+    Vector2 custom_position;
+    Vector3 property_from_list;
+    Vector2 dprop[3];
+    int     last_rpc_arg = 0;
 
-public:
-	// Constants.
-	enum Constants {
-		FIRST,
-		ANSWER_TO_EVERYTHING = 42,
-	};
+  public:
+    // Constants.
+    enum Constants
+    {
+      FIRST,
+      ANSWER_TO_EVERYTHING = 42,
+    };
 
-	enum Flags {
-		FLAG_ONE = 1,
-		FLAG_TWO = 2,
-	};
+    enum Flags
+    {
+      FLAG_ONE = 1,
+      FLAG_TWO = 2,
+    };
 
-	enum {
-		CONSTANT_WITHOUT_ENUM = 314,
-	};
+    enum
+    {
+      CONSTANT_WITHOUT_ENUM = 314,
+    };
 
-	Example();
-	~Example();
+    Example();
+    ~Example();
 
-	// Functions.
-	void simple_func();
-	void simple_const_func() const;
-	int custom_ref_func(Ref<ExampleRef> p_ref);
-	int custom_const_ref_func(const Ref<ExampleRef> &p_ref);
-	String image_ref_func(Ref<Image> p_image);
-	String image_const_ref_func(const Ref<Image> &p_image);
-	String return_something(const String &base);
-	Viewport *return_something_const() const;
-	Ref<ExampleRef> return_ref() const;
-	Ref<ExampleRef> return_empty_ref() const;
-	ExampleRef *return_extended_ref() const;
-	Ref<ExampleRef> extended_ref_checks(Ref<ExampleRef> p_ref) const;
-	Variant varargs_func(const Variant **args, GDExtensionInt arg_count, GDExtensionCallError &error);
-	int varargs_func_nv(const Variant **args, GDExtensionInt arg_count, GDExtensionCallError &error);
-	void varargs_func_void(const Variant **args, GDExtensionInt arg_count, GDExtensionCallError &error);
-	void emit_custom_signal(const String &name, int value);
-	int def_args(int p_a = 100, int p_b = 200);
+    // Functions.
+    void            simple_func();
+    void            simple_const_func() const;
+    int             custom_ref_func( Ref<ExampleRef> p_ref );
+    int             custom_const_ref_func( const Ref<ExampleRef>& p_ref );
+    String          image_ref_func( Ref<Image> p_image );
+    String          image_const_ref_func( const Ref<Image>& p_image );
+    String          return_something( const String& base );
+    Viewport*       return_something_const() const;
+    Ref<ExampleRef> return_ref() const;
+    Ref<ExampleRef> return_empty_ref() const;
+    ExampleRef*     return_extended_ref() const;
+    Ref<ExampleRef> extended_ref_checks( Ref<ExampleRef> p_ref ) const;
+    Variant
+    varargs_func( const Variant** args, GDExtensionInt arg_count, GDExtensionCallError& error );
+    int
+    varargs_func_nv( const Variant** args, GDExtensionInt arg_count, GDExtensionCallError& error );
+    void varargs_func_void( const Variant**       args,
+                            GDExtensionInt        arg_count,
+                            GDExtensionCallError& error );
+    void emit_custom_signal( const String& name, int value );
+    int  def_args( int p_a = 100, int p_b = 200 );
 
-	Array test_array() const;
-	int test_tarray_arg(const TypedArray<int64_t> &p_array);
-	TypedArray<Vector2> test_tarray() const;
-	Dictionary test_dictionary() const;
-	Example *test_node_argument(Example *p_node) const;
-	String test_string_ops() const;
-	String test_str_utility() const;
-	bool test_string_is_fourty_two(const String &p_str) const;
-	String test_string_resize(String p_original) const;
-	int test_vector_ops() const;
-	int test_vector_init_list() const;
+    Array               test_array() const;
+    int                 test_tarray_arg( const TypedArray<int64_t>& p_array );
+    TypedArray<Vector2> test_tarray() const;
+    Dictionary          test_dictionary() const;
+    Example*            test_node_argument( Example* p_node ) const;
+    String              test_string_ops() const;
+    String              test_str_utility() const;
+    bool                test_string_is_fourty_two( const String& p_str ) const;
+    String              test_string_resize( String p_original ) const;
+    int                 test_vector_ops() const;
+    int                 test_vector_init_list() const;
 
-	bool test_object_cast_to_node(Object *p_object) const;
-	bool test_object_cast_to_control(Object *p_object) const;
-	bool test_object_cast_to_example(Object *p_object) const;
+    bool test_object_cast_to_node( Object* p_object ) const;
+    bool test_object_cast_to_control( Object* p_object ) const;
+    bool test_object_cast_to_example( Object* p_object ) const;
 
-	Vector2i test_variant_vector2i_conversion(const Variant &p_variant) const;
-	int test_variant_int_conversion(const Variant &p_variant) const;
-	float test_variant_float_conversion(const Variant &p_variant) const;
+    Vector2i test_variant_vector2i_conversion( const Variant& p_variant ) const;
+    int      test_variant_int_conversion( const Variant& p_variant ) const;
+    float    test_variant_float_conversion( const Variant& p_variant ) const;
 
-	void test_add_child(Node *p_node);
-	void test_set_tileset(TileMap *p_tilemap, const Ref<TileSet> &p_tileset) const;
+    void test_add_child( Node* p_node );
+    void test_set_tileset( TileMap* p_tilemap, const Ref<TileSet>& p_tileset ) const;
 
-	Variant test_variant_call(Variant p_variant);
+    Variant test_variant_call( Variant p_variant );
 
-	Callable test_callable_mp();
-	Callable test_callable_mp_ret();
-	Callable test_callable_mp_retc() const;
-	Callable test_callable_mp_static() const;
-	Callable test_callable_mp_static_ret() const;
-	Callable test_custom_callable() const;
+    Callable test_callable_mp();
+    Callable test_callable_mp_ret();
+    Callable test_callable_mp_retc() const;
+    Callable test_callable_mp_static() const;
+    Callable test_callable_mp_static_ret() const;
+    Callable test_custom_callable() const;
 
-	void unbound_method1(Object *p_object, String p_string, int p_int);
-	String unbound_method2(Object *p_object, String p_string, int p_int);
-	String unbound_method3(Object *p_object, String p_string, int p_int) const;
-	static void unbound_static_method1(Example *p_object, String p_string, int p_int);
-	static String unbound_static_method2(Object *p_object, String p_string, int p_int);
+    void          unbound_method1( Object* p_object, String p_string, int p_int );
+    String        unbound_method2( Object* p_object, String p_string, int p_int );
+    String        unbound_method3( Object* p_object, String p_string, int p_int ) const;
+    static void   unbound_static_method1( Example* p_object, String p_string, int p_int );
+    static String unbound_static_method2( Object* p_object, String p_string, int p_int );
 
-	BitField<Flags> test_bitfield(BitField<Flags> flags);
+    BitField<Flags> test_bitfield( BitField<Flags> flags );
 
-	Variant test_variant_iterator(const Variant &p_input);
+    Variant test_variant_iterator( const Variant& p_input );
 
-	// RPC
-	void test_rpc(int p_value);
-	void test_send_rpc(int p_value);
-	int return_last_rpc_arg();
+    // RPC
+    void test_rpc( int p_value );
+    void test_send_rpc( int p_value );
+    int  return_last_rpc_arg();
 
-	void callable_bind();
+    void callable_bind();
 
-	// Property.
-	void set_custom_position(const Vector2 &pos);
-	Vector2 get_custom_position() const;
-	Vector4 get_v4() const;
+    // Property.
+    void    set_custom_position( const Vector2& pos );
+    Vector2 get_custom_position() const;
+    Vector4 get_v4() const;
 
-	bool test_post_initialize() const;
+    bool test_post_initialize() const;
 
-	// Static method.
-	static int test_static(int p_a, int p_b);
-	static void test_static2();
+    // Static method.
+    static int  test_static( int p_a, int p_b );
+    static void test_static2();
 
-	// Virtual function override (no need to bind manually).
-	virtual bool _has_point(const Vector2 &point) const override;
-	virtual void _input(const Ref<InputEvent> &event) override;
+    // Virtual function override (no need to bind manually).
+    virtual bool _has_point( const Vector2& point ) const override;
+    virtual void _input( const Ref<InputEvent>& event ) override;
 
-	GDVIRTUAL2R(String, _do_something_virtual, String, int);
-	String test_virtual_implemented_in_script(const String &p_name, int p_value);
+    GDVIRTUAL2R( String, _do_something_virtual, String, int );
+    String test_virtual_implemented_in_script( const String& p_name, int p_value );
 
-	String test_use_engine_singleton() const;
+    String test_use_engine_singleton() const;
 };
 
-VARIANT_ENUM_CAST(Example::Constants);
-VARIANT_BITFIELD_CAST(Example::Flags);
+VARIANT_ENUM_CAST( Example::Constants );
+VARIANT_BITFIELD_CAST( Example::Flags );
 
-enum EnumWithoutClass {
-	OUTSIDE_OF_CLASS = 512
+enum EnumWithoutClass
+{
+  OUTSIDE_OF_CLASS = 512
 };
-VARIANT_ENUM_CAST(EnumWithoutClass);
+VARIANT_ENUM_CAST( EnumWithoutClass );
 
-class ExampleVirtual : public Object {
-	GDCLASS(ExampleVirtual, Object);
+class ExampleVirtual : public Object
+{
+    GDCLASS( ExampleVirtual, Object );
 
-protected:
-	static void _bind_methods() {}
-};
-
-class ExampleAbstractBase : public Object {
-	GDCLASS(ExampleAbstractBase, Object);
-
-protected:
-	static void _bind_methods() {}
-
-	virtual int test_function() = 0;
+  protected:
+    static void _bind_methods() {}
 };
 
-class ExampleConcrete : public ExampleAbstractBase {
-	GDCLASS(ExampleConcrete, ExampleAbstractBase);
+class ExampleAbstractBase : public Object
+{
+    GDCLASS( ExampleAbstractBase, Object );
 
-protected:
-	static void _bind_methods() {}
+  protected:
+    static void _bind_methods() {}
 
-	virtual int test_function() override { return 25; }
+    virtual int test_function() = 0;
 };
 
-class ExampleBase : public Node {
-	GDCLASS(ExampleBase, Node);
+class ExampleConcrete : public ExampleAbstractBase
+{
+    GDCLASS( ExampleConcrete, ExampleAbstractBase );
 
-protected:
-	int value1 = 0;
-	int value2 = 0;
+  protected:
+    static void _bind_methods() {}
 
-	static void _bind_methods();
-
-	void _notification(int p_what);
-
-public:
-	int get_value1() { return value1; }
-	int get_value2() { return value2; }
+    virtual int test_function() override
+    {
+      return 25;
+    }
 };
 
-class ExampleChild : public ExampleBase {
-	GDCLASS(ExampleChild, ExampleBase);
+class ExampleBase : public Node
+{
+    GDCLASS( ExampleBase, Node );
 
-protected:
-	static void _bind_methods() {}
+  protected:
+    int value1 = 0;
+    int value2 = 0;
 
-	void _notification(int p_what);
+    static void _bind_methods();
+
+    void _notification( int p_what );
+
+  public:
+    int get_value1()
+    {
+      return value1;
+    }
+    int get_value2()
+    {
+      return value2;
+    }
 };
 
-class ExampleRuntime : public Node {
-	GDCLASS(ExampleRuntime, Node);
+class ExampleChild : public ExampleBase
+{
+    GDCLASS( ExampleChild, ExampleBase );
 
-	int prop_value = 12;
+  protected:
+    static void _bind_methods() {}
 
-protected:
-	static void _bind_methods();
+    void _notification( int p_what );
+};
 
-public:
-	void set_prop_value(int p_prop_value);
-	int get_prop_value() const;
+class ExampleRuntime : public Node
+{
+    GDCLASS( ExampleRuntime, Node );
 
-	ExampleRuntime();
-	~ExampleRuntime();
+    int prop_value = 12;
+
+  protected:
+    static void _bind_methods();
+
+  public:
+    void set_prop_value( int p_prop_value );
+    int  get_prop_value() const;
+
+    ExampleRuntime();
+    ~ExampleRuntime();
 };
 
 #endif // EXAMPLE_CLASS_H

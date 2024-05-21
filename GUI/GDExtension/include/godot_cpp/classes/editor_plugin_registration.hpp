@@ -33,29 +33,31 @@
 
 #include <godot_cpp/templates/vector.hpp>
 
-namespace godot {
+namespace godot
+{
 
-class EditorPlugin;
-class StringName;
+  class EditorPlugin;
+  class StringName;
 
-class EditorPlugins {
-private:
-	static Vector<StringName> plugin_classes;
+  class EditorPlugins
+  {
+    private:
+      static Vector<StringName> plugin_classes;
 
-public:
-	static void add_plugin_class(const StringName &p_class_name);
-	static void remove_plugin_class(const StringName &p_class_name);
-	static void deinitialize(GDExtensionInitializationLevel p_level);
+    public:
+      static void add_plugin_class( const StringName& p_class_name );
+      static void remove_plugin_class( const StringName& p_class_name );
+      static void deinitialize( GDExtensionInitializationLevel p_level );
 
-	template <typename T>
-	static void add_by_type() {
-		add_plugin_class(T::get_class_static());
-	}
-	template <typename T>
-	static void remove_by_type() {
-		remove_plugin_class(T::get_class_static());
-	}
-};
+      template<typename T> static void add_by_type()
+      {
+        add_plugin_class( T::get_class_static() );
+      }
+      template<typename T> static void remove_by_type()
+      {
+        remove_plugin_class( T::get_class_static() );
+      }
+  };
 
 } // namespace godot
 

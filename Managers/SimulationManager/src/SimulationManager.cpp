@@ -21,8 +21,5 @@ namespace Manager
     } while ( !initRecvd );
   }
 
-  void SimulationManager::run()
-  {
-    
-  }
+  void SimulationManager::run() {}
 } // namespace Manager
