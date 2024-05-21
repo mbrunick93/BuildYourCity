@@ -11,4 +11,5 @@ target_include_directories(simulationmanager PUBLIC    ${CMAKE_CURRENT_SOURCE_DI
 add_executable(simulationmanagermain SimulationManagerMain.cpp)
 target_link_libraries(simulationmanagermain PUBLIC common 
                                                     fastddsmessages 
+                                                    simulationmanager
                                                     )

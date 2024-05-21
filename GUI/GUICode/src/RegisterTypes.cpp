@@ -1,8 +1,11 @@
-#include "RegisterTypes.h"
+
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
+
+#include "GodotDDSWrapper.h"
+#include "RegisterTypes.h"
 
 using namespace godot;
 
@@ -12,6 +15,8 @@ void initialize_buildyourcity_module( ModuleInitializationLevel p_level )
   {
     return;
   }
+
+  ClassDB::register_class<GodotDDSWrapper>();
 }
 
 void uninitialize_buildyourcity_module( ModuleInitializationLevel p_level )

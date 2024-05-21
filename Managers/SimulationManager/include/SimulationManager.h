@@ -7,6 +7,7 @@
 #include "IFastDDSPubWrapper.h"
 #include "IFastDDSSubWrapper.h"
 #include "InitializeMessagePubSubTypes.h"
+#include "TickMessagePubSubTypes.h"
 
 namespace Manager
 {
@@ -26,6 +27,14 @@ namespace Manager
           initializeMsgPublisher;
       Common::IFastDDSSubWrapper<InitializeMessagePubSubType, InitializeMessage>*
           initializeMsgSubscriber;
+      Common::FastDDSPubWrapper<TickMessagePubSubType,TickMessage> implTickMsgPublisher{Constants::TopicNames::tickTopic};
+      Common::IFastDDSPubWrapper<TickMessagePubSubType,TickMessage>* tickMsgPublisher;
+
+      int tickValue{0};
+      int population{0};
+      float happiness{0.0};
+      float revenue{0.0};
+
   };
 } // namespace Manager
 

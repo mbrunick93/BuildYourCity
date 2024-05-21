@@ -1,4 +1,7 @@
 struct TickMessage
 {
     unsigned long tickValue;
+    unsigned long population;
+    float happiness;
+    float revenue;
 };

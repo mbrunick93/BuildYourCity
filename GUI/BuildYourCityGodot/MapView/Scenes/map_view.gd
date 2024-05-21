@@ -2,6 +2,11 @@ extends Node2D
 
 @onready var tile_map = $TileMap
 @onready var building_window = $BuildingWindow
+@onready var godot_dds_wrapper = $GodotDDSWrapper
+@onready var revenue_label = $ColorRect/MarginContainer/HBoxContainer/VBoxContainer/GridContainer/RevenueLabel
+@onready var population_label = $ColorRect/MarginContainer/HBoxContainer/VBoxContainer/GridContainer/PopulationLabel
+@onready var tick_value = $ColorRect/MarginContainer/HBoxContainer/VBoxContainer2/GridContainer/TickValue
+@onready var progress_bar = $ColorRect/MarginContainer/HBoxContainer/VBoxContainer/ProgressBar
 
 
 
@@ -23,7 +28,13 @@ func _input(event):
 			building_window.show()
 		
 		
-
+func _process(delta):
+	godot_dds_wrapper.update()
+	revenue_label.set_text(godot_dds_wrapper.getRevenue())
+	population_label.set_text(godot_dds_wrapper.getPopulation())
+	tick_value.set_text(godot_dds_wrapper.getTick())
+	var pro = godot_dds_wrapper.getHappiness()
+	progress_bar.value = pro
 
 func _on_main_menu_button_pressed():
 	get_tree().change_scene_to_file("res://MainMenu/Scenes/MainMenu.tscn")

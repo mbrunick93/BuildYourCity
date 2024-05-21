@@ -51,7 +51,7 @@ IDL () {
 QuickBuild () {
     if [ -d ${SCRIPT_DIR}/build ]
     then
-        cmake --build ${SCRIPT_DIR}/build -j 8
+        cmake --build ${SCRIPT_DIR}/build -j 8 
     else
         echo "Can't perform quick build. Run full script first "./build.sh""
         exit 1
@@ -77,7 +77,7 @@ NormalBuild () {
     echo "Formatting files."
     Format
     echo "Configuring CMake."
-    cmake -DCMAKE_BUILD_TYPE=DEBUG -S ${SCRIPT_DIR} -B ${SCRIPT_DIR}/build
+    cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=DEBUG -S ${SCRIPT_DIR} -B ${SCRIPT_DIR}/build
     echo "Compiling code."
     QuickBuild
 }

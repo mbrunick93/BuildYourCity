@@ -3,7 +3,7 @@ project(guicode)
 file(GLOB SRC_FILES CONFIGURE_DEPENDS src/*.cpp)
 
 add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
-target_link_libraries(${PROJECT_NAME} PUBLIC godot-cpp )
+target_link_libraries(${PROJECT_NAME} PUBLIC godot-cpp common fastddsmessages)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 set(FullName ${PROJECT_NAME}.${CMAKE_SYSTEM_NAME}.${CMAKE_BUILD_TYPE}.${CMAKE_SYSTEM_PROCESSOR})
