@@ -33,142 +33,97 @@
 #include <godot_cpp/variant/string.hpp>
 #include <godot_cpp/variant/vector2.hpp>
 
-namespace godot
-{
+namespace godot {
 
-  Vector2i Vector2i::snapped( const Vector2i& p_step ) const
-  {
-    return Vector2i( Math::snapped( x, p_step.x ), Math::snapped( y, p_step.y ) );
-  }
+Vector2i Vector2i::clamp(const Vector2i &p_min, const Vector2i &p_max) const {
+	return Vector2i(
+			CLAMP(x, p_min.x, p_max.x),
+			CLAMP(y, p_min.y, p_max.y));
+}
 
-  Vector2i Vector2i::snappedi( int32_t p_step ) const
-  {
-    return Vector2i( Math::snapped( x, p_step ), Math::snapped( y, p_step ) );
-  }
+int64_t Vector2i::length_squared() const {
+	return x * (int64_t)x + y * (int64_t)y;
+}
 
-  Vector2i Vector2i::clamp( const Vector2i& p_min, const Vector2i& p_max ) const
-  {
-    return Vector2i( CLAMP( x, p_min.x, p_max.x ), CLAMP( y, p_min.y, p_max.y ) );
-  }
+double Vector2i::length() const {
+	return Math::sqrt((double)length_squared());
+}
 
-  Vector2i Vector2i::clampi( int32_t p_min, int32_t p_max ) const
-  {
-    return Vector2i( CLAMP( x, p_min, p_max ), CLAMP( y, p_min, p_max ) );
-  }
+Vector2i Vector2i::operator+(const Vector2i &p_v) const {
+	return Vector2i(x + p_v.x, y + p_v.y);
+}
 
-  int64_t Vector2i::length_squared() const
-  {
-    return x * (int64_t)x + y * (int64_t)y;
-  }
+void Vector2i::operator+=(const Vector2i &p_v) {
+	x += p_v.x;
+	y += p_v.y;
+}
 
-  double Vector2i::length() const
-  {
-    return Math::sqrt( (double)length_squared() );
-  }
+Vector2i Vector2i::operator-(const Vector2i &p_v) const {
+	return Vector2i(x - p_v.x, y - p_v.y);
+}
 
-  int64_t Vector2i::distance_squared_to( const Vector2i& p_to ) const
-  {
-    return ( p_to - *this ).length_squared();
-  }
+void Vector2i::operator-=(const Vector2i &p_v) {
+	x -= p_v.x;
+	y -= p_v.y;
+}
 
-  double Vector2i::distance_to( const Vector2i& p_to ) const
-  {
-    return ( p_to - *this ).length();
-  }
+Vector2i Vector2i::operator*(const Vector2i &p_v1) const {
+	return Vector2i(x * p_v1.x, y * p_v1.y);
+}
 
-  Vector2i Vector2i::operator+( const Vector2i& p_v ) const
-  {
-    return Vector2i( x + p_v.x, y + p_v.y );
-  }
+Vector2i Vector2i::operator*(const int32_t &rvalue) const {
+	return Vector2i(x * rvalue, y * rvalue);
+}
 
-  void Vector2i::operator+=( const Vector2i& p_v )
-  {
-    x += p_v.x;
-    y += p_v.y;
-  }
+void Vector2i::operator*=(const int32_t &rvalue) {
+	x *= rvalue;
+	y *= rvalue;
+}
 
-  Vector2i Vector2i::operator-( const Vector2i& p_v ) const
-  {
-    return Vector2i( x - p_v.x, y - p_v.y );
-  }
+Vector2i Vector2i::operator/(const Vector2i &p_v1) const {
+	return Vector2i(x / p_v1.x, y / p_v1.y);
+}
 
-  void Vector2i::operator-=( const Vector2i& p_v )
-  {
-    x -= p_v.x;
-    y -= p_v.y;
-  }
+Vector2i Vector2i::operator/(const int32_t &rvalue) const {
+	return Vector2i(x / rvalue, y / rvalue);
+}
 
-  Vector2i Vector2i::operator*( const Vector2i& p_v1 ) const
-  {
-    return Vector2i( x * p_v1.x, y * p_v1.y );
-  }
+void Vector2i::operator/=(const int32_t &rvalue) {
+	x /= rvalue;
+	y /= rvalue;
+}
 
-  Vector2i Vector2i::operator*( const int32_t& rvalue ) const
-  {
-    return Vector2i( x * rvalue, y * rvalue );
-  }
+Vector2i Vector2i::operator%(const Vector2i &p_v1) const {
+	return Vector2i(x % p_v1.x, y % p_v1.y);
+}
 
-  void Vector2i::operator*=( const int32_t& rvalue )
-  {
-    x *= rvalue;
-    y *= rvalue;
-  }
+Vector2i Vector2i::operator%(const int32_t &rvalue) const {
+	return Vector2i(x % rvalue, y % rvalue);
+}
 
-  Vector2i Vector2i::operator/( const Vector2i& p_v1 ) const
-  {
-    return Vector2i( x / p_v1.x, y / p_v1.y );
-  }
+void Vector2i::operator%=(const int32_t &rvalue) {
+	x %= rvalue;
+	y %= rvalue;
+}
 
-  Vector2i Vector2i::operator/( const int32_t& rvalue ) const
-  {
-    return Vector2i( x / rvalue, y / rvalue );
-  }
+Vector2i Vector2i::operator-() const {
+	return Vector2i(-x, -y);
+}
 
-  void Vector2i::operator/=( const int32_t& rvalue )
-  {
-    x /= rvalue;
-    y /= rvalue;
-  }
+bool Vector2i::operator==(const Vector2i &p_vec2) const {
+	return x == p_vec2.x && y == p_vec2.y;
+}
 
-  Vector2i Vector2i::operator%( const Vector2i& p_v1 ) const
-  {
-    return Vector2i( x % p_v1.x, y % p_v1.y );
-  }
+bool Vector2i::operator!=(const Vector2i &p_vec2) const {
+	return x != p_vec2.x || y != p_vec2.y;
+}
 
-  Vector2i Vector2i::operator%( const int32_t& rvalue ) const
-  {
-    return Vector2i( x % rvalue, y % rvalue );
-  }
+Vector2i::operator String() const {
+	return "(" + itos(x) + ", " + itos(y) + ")";
+}
 
-  void Vector2i::operator%=( const int32_t& rvalue )
-  {
-    x %= rvalue;
-    y %= rvalue;
-  }
-
-  Vector2i Vector2i::operator-() const
-  {
-    return Vector2i( -x, -y );
-  }
-
-  bool Vector2i::operator==( const Vector2i& p_vec2 ) const
-  {
-    return x == p_vec2.x && y == p_vec2.y;
-  }
-
-  bool Vector2i::operator!=( const Vector2i& p_vec2 ) const
-  {
-    return x != p_vec2.x || y != p_vec2.y;
-  }
-
-  Vector2i::operator String() const
-  {
-    return "(" + itos( x ) + ", " + itos( y ) + ")";
-  }
-
-  Vector2i::operator Vector2() const
-  {
-    return Vector2( (int32_t)x, (int32_t)y );
-  }
+Vector2i::operator Vector2() const {
+	return Vector2((int32_t)x, (int32_t)y);
+}
 
 } // namespace godot

@@ -33,17 +33,14 @@
 #include <godot_cpp/variant/rect2.hpp>
 #include <godot_cpp/variant/string.hpp>
 
-namespace godot
-{
+namespace godot {
 
-  Rect2i::operator String() const
-  {
-    return "[P: " + position.operator String() + ", S: " + size + "]";
-  }
+Rect2i::operator String() const {
+	return "[P: " + position.operator String() + ", S: " + size + "]";
+}
 
-  Rect2i::operator Rect2() const
-  {
-    return Rect2( position, size );
-  }
+Rect2i::operator Rect2() const {
+	return Rect2(position, size);
+}
 
 } // namespace godot

@@ -28,26 +28,23 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-namespace godot
-{
-  namespace helpers
-  {
-    template<typename T, typename ValueT> T append_all( T appendable, ValueT value )
-    {
-      appendable.append( value );
-      return appendable;
-    }
+namespace godot {
+namespace helpers {
+template <typename T, typename ValueT>
+T append_all(T appendable, ValueT value) {
+	appendable.append(value);
+	return appendable;
+}
 
-    template<typename T, typename ValueT, typename... Args>
-    T append_all( T appendable, ValueT value, Args... args )
-    {
-      appendable.append( value );
-      return append_all( appendable, args... );
-    }
+template <typename T, typename ValueT, typename... Args>
+T append_all(T appendable, ValueT value, Args... args) {
+	appendable.append(value);
+	return append_all(appendable, args...);
+}
 
-    template<typename T> T append_all( T appendable )
-    {
-      return appendable;
-    }
-  } // namespace helpers
+template <typename T>
+T append_all(T appendable) {
+	return appendable;
+}
+} // namespace helpers
 } // namespace godot
